@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{{title}}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body class="mat-app-background">
+  <form [formGroup]="dynamicForm" (ngSubmit)="submitForm()" >
+    <div *ngFor="let form of classifyFormGroups; let i = index" class="list-group">
+      <img class="img-responsive" src="{{imgPath[i]}}">
+      <div [formGroup]="form">
+        <div fxLayout="row" fxLayoutGap="20px">
+          <mat-list>
+            <div>
+              <mat-list-item fxFlex="nogrow">
+                <mat-form-field appearance="outline" color="accent">
+                  <mat-label>Enter shape type</mat-label>
+                  <input matInput formControlName="shapeType" required/>
+                </mat-form-field>
+              </mat-list-item>
+
+              <mat-list-item fxFlex="nogrow">
+                <mat-form-field appearance="outline" color="accent">
+                  <mat-label>Enter Letter</mat-label>
+                  <input matInput formControlName= "letterType" required>
+                </mat-form-field>
+              </mat-list-item>
+            </div>
+
+            <div>
+              <mat-list-item fxFlex="nogrow">
+                <mat-form-field appearance="outline" color="accent">
+                  <mat-label>Select shape color</mat-label>
+                  <mat-select formControlName= "shapeColor" required>
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let color of colors" [value]="color">{{color}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-list-item>
+
+              <mat-list-item fxFlex="nogrow">
+                <mat-form-field appearance="outline" color="accent">
+                  <mat-label>Select letter color</mat-label>
+                  <mat-select formControlName= "letterColor" required>
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let color of colors" [value]="color">{{color}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-list-item>
+            </div>
+          </mat-list>
+        </div>
+      </div>
+    </div>
+    <mat-error *ngIf="dynamicForm.hasError('required')"></mat-error>
+    <button mat-raised-button type="submit" color="accent" [disabled]="!dynamicForm.valid">Submit</button>
+  </form>
+
+  <li *ngFor="let obj of info">
+    <pre>{{obj}}</pre>
+  </li>
+</body>
